@@ -6,6 +6,7 @@ import AddAnswer from './addAnswer.js';
 import ModalLock from '../modals/modalLockQuestion.js';
 
 
+
 class Question extends Component {
 
   constructor(props) {
@@ -14,11 +15,9 @@ class Question extends Component {
       collapse: true,
     };
   }
-
   render() {
-    const {question} = this.props;
-    const {collapse} = this.state;
-    const {close} = this.state;
+    const {question,closed} = this.props;
+    const {collapse} = this.state;    
 
     const handleCollapseClick = (e) => {
       e.preventDefault();
@@ -38,7 +37,7 @@ class Question extends Component {
           < ModalLock questionId={question.id} />
         </div>
         {collapse ? null : <Answers question={question} loading />}
-        {collapse ? null : <AddAnswer question={question} />}
+        {collapse ? null : question.close ? <AddAnswer question={question} cerrado={question.close} /> : <AddAnswer question={question} />}
       </div>
     );
   }

@@ -24,6 +24,7 @@ export const questions = (state = initialState, action) => {
     case ActionTypes.EDIT_ANSWER_ERROR:
     case ActionTypes.DELETE_ANSWER_ERROR:
     case ActionTypes.CREATE_QUESTION_ERROR:
+    case ActionTypes.CLOSE_QUESTION_ERROR:
       return {
         ...state,
         status: 'error',
