@@ -45,7 +45,6 @@ class Answers extends Component {
 
   render() {
     const {question, answering} = this.props;
-
     const {loading} = this.state;
     return (
       <div className="panel-body">
@@ -53,7 +52,7 @@ class Answers extends Component {
           <div>
             <ul className="list-group">
               {question.answers.map(answer => (
-                <Answer key={answer.id} answer={answer} questionId={question.id} />
+                <Answer key={answer.id} answer={answer} questionId={question.id} questionClose={question.close} />
               ))}
               {answering ? <li className="list-group-item" key={question.answers.length}><Spinner /></li> : null}
             </ul>

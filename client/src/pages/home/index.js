@@ -5,12 +5,16 @@ import MediaQuery from 'react-responsive';
 // our packages
 import {QuestionList, QuestionSingle} from '../../components/question';
 import Filter from '../../components/filter';
+import Order from '../../components/order';
 
 const Home = () => (
   <div className="container">
     <div className="row">
       <div className="col-xs-4 pull-right">
         <Filter />
+      </div>
+      <div className="col-xs-4 pull-left">
+        <Order />        
       </div>
     </div>
     <div className="row" style={{marginTop: '20px'}}>

@@ -30,6 +30,7 @@ class Answer extends Component {
   render() {
     let answerText;
     const {
+      questionClose,
       questionId,
       answer,
       user,
@@ -49,7 +50,7 @@ class Answer extends Component {
 
     const onEditAnswerClick = (e) => {
       e.preventDefault();
-      const {answer} = this.props;
+      const {answer,question} = this.props;
       answerText.value = answer.answer;
       onStartEditAnswer({answerId: answer.id});
     };
@@ -83,27 +84,33 @@ class Answer extends Component {
     };
 
     const printButtons = () => {
-      if (answer.user && user.id && answer.user === user.id) {
-        if (!deleting[answer.id]) {
-          return (
-            <span>
-              <button style={{marginLeft: '10px'}} className="btn btn-sm btn-danger pull-right" onClick={(e) => onDeleteAnswerClick(e)} >
-                <span className="glyphicon glyphicon-trash action-icon" />
-              </button>
-              <button className="btn btn-sm btn-warning pull-right" onClick={(e) => onEditAnswerClick(e)} >
-                <span className="glyphicon glyphicon-edit action-icon" />
-              </button>
-            </span>
-          );
-        } else {
-          return <span className="pull-right"><Spinner /> </span>;
-        }
+
+      if (questionClose){
+        null
+      }else{
+        if (answer.user && user.id && answer.user === user.id) {
+          if (!deleting[answer.id]) {
+            return (
+              <span>
+                <button style={{marginLeft: '10px'}} className="btn btn-sm btn-danger pull-right" onClick={(e) => onDeleteAnswerClick(e)} >
+                  <span className="glyphicon glyphicon-trash action-icon" />
+                </button>
+                <button className="btn btn-sm btn-warning pull-right" onClick={(e) => onEditAnswerClick(e)} >
+                  <span className="glyphicon glyphicon-edit action-icon" />
+                </button>
+              </span>
+            );
+          } else {
+            return <span className="pull-right"><Spinner /> </span>;
+          }
       } else {
         return null;
       }
+    }
     };
 
     return (
+
       <li className="list-group-item" style={{paddingBottom: '20px'}}>
         <div className={`${editing === answer.id ? 'hidden' : ''}`}>
           {!updating[answer.id] ? answer.answer : <Spinner />}
