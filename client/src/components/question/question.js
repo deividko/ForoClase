@@ -15,9 +15,10 @@ class Question extends Component {
       collapse: true,
     };
   }
+
   render() {
     const {question,closed} = this.props;
-    const {collapse} = this.state;
+    const {collapse} = this.state; 
 
     const handleCollapseClick = (e) => {
       e.preventDefault();

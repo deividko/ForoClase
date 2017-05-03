@@ -15,7 +15,7 @@ class AddAnswer extends Component {
 
   render() {
     let answerInput;
-    const {question, doAnswer} = this.props;    
+    const {question, doAnswer} = this.props;
     const handleAnswerClick = (e) => {
       e.preventDefault();
       doAnswer({question, answer: answerInput.value});
@@ -41,11 +41,15 @@ class AddAnswer extends Component {
               placeholder="Enter your answer..."
               ref={(i) => { answerInput = i; }}
             />}
-            <span className="input-group-btn">
-              <button type="submit" className="btn btn-default" onClick={handleAnswerClick}>
+            {this.props.cerrado ? <span className="input-group-btn">
+              <button type="submit" className="btn btn-default" onClick={handleAnswerClick} disabled>
                 Answer
               </button>
-            </span>
+            </span> : <span className="input-group-btn">
+              <button type="submit" className="btn btn-default" onClick={handleAnswerClick} >
+                Answer
+              </button>
+            </span>}
           </div>
         </form>
       </div>

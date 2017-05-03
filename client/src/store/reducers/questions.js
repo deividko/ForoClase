@@ -1,6 +1,6 @@
 import * as ActionTypes from '../actionTypes';
 
-const initialState = {questions: [], status: 'inited', answering: {}, hasMore: true};
+const initialState = {questions: [], status: 'inited', answering: {}, hasMore: true };
 
 export const questions = (state = initialState, action) => {
   switch (action.type) {
@@ -33,6 +33,7 @@ export const questions = (state = initialState, action) => {
     case ActionTypes.GET_ANSWERS_SUCCESS:
     case ActionTypes.ANSWER_QUESTION_SUCCESS:
     case ActionTypes.EDIT_ANSWER_SUCCESS:
+    case ActionTypes.CLOSE_QUESTION_SUCCES:
     case ActionTypes.DELETE_ANSWER_SUCCESS: {
       const newQuestions = state.questions.map(q => q.id === action.payload.question.id ? action.payload.question : q);
       return {
