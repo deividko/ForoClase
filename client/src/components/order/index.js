@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Question from '../question/question';
 
-import {orderByDescAction, orderByAscAction} from '../../store/actions';
+import {orderBy} from '../../store/actions';
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
 });
 
 const mapDispatchToProps = dispatch => ({
-  orderByDesc: payload => dispatch(orderByDescAction(payload)),
-  orderByAsc: payload => dispatch(orderByAscAction(payload)),
+  orderBy: payload => dispatch(orderBy(payload)),
 });
 
 class OrderBy extends Component {
@@ -21,12 +20,10 @@ class OrderBy extends Component {
 
   handleChange(e) {
     e.preventDefault();
-    const {orderByDesc, orderByAsc} = this.props;
+    const {orderBy} = this.props;
     const option = e.target.value.split('.');
-    const order = option[0];
-    const type = option[1];
-
-    type == 'desc' ? orderByDesc({order}) : orderByAsc({order});
+console.log(option);
+     orderBy({option});
     return false;
   }
 
@@ -43,7 +40,7 @@ class OrderBy extends Component {
           <option value="creationDate.desc">Creation Date (Desc)</option>
           <option value="creationDate.asc">Creation Date (Asc)</option>
           <option value="text.desc">Text (Desc)</option>
-          <option value="text.asc">Text (Asc)</option>                    
+          <option value="text.asc">Text (Asc)</option>
         </select>
       </div>
     )

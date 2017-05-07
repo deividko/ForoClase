@@ -11,8 +11,7 @@ import {getMoreQuestions,
         doFilterQuestions,
         removePendingQuestionNotifications,
         lockQuestion,
-        orderByDesc,
-        orderByAsc,} from './questions';
+        orderBy,} from './questions';
 
 export default [
   // auth
@@ -37,6 +36,5 @@ export default [
   getAnswers,
   removePendingQuestionNotifications,
   lockQuestion,
-  orderByDesc,
-  orderByAsc,
+  orderBy,
 ];

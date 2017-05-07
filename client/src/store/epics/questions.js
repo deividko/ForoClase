@@ -12,7 +12,7 @@ export const getMoreQuestions = action$ => action$
   .ofType(ActionTypes.GET_MORE_QUESTIONS)
   .map(signRequest)
   .mergeMap(({headers, payload}) => Observable
-    .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}`,
+    .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&option=${payload.option}`,
       headers)
     .delayInDebug(2000)
     .map(res => res.response)
@@ -210,39 +210,19 @@ export const doFilterQuestions = action$ => action$
       },
     ),
   );
-  export const orderByDesc = action$ => action$
-    .ofType(ActionTypes.ORDER_BY_DESC)
+  export const orderBy = action$ => action$
+    .ofType(ActionTypes.ORDER_BY)
     .map(signRequest)
     .switchMap(({headers, payload}) => Observable
-      .ajax.post(`http://${host}:${port}/api/questions/orderByDesc`, payload, headers)
+    .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&option=${payload.option}`, headers)
       .map(res => res.response)
       .mergeMap(questions => Observable.of ({
-        type: ActionTypes.ORDER_BY_DESC_SUCCESS,
+        type: ActionTypes.ORDER_BY_SUCCESS,
         payload: questions,
       }
       ))
       .catch(error => Observable.of({
-        type: ActionTypes.ORDER_BY_DESC_ERROR,
-        payload: error,
-      },
-        Actions.addNotificationAction({
-          text: `error: ${ajaxErrorToMessage(error)}`, alertType: 'danger',
-        })
-      )));
-
-  export const orderByAsc = action$ => action$
-    .ofType(ActionTypes.ORDER_BY_ASC)
-    .map(signRequest)
-    .switchMap(({headers, payload}) => Observable
-      .ajax.post(`http://${host}:${port}/api/questions/orderByAsc?limit=${payload.limit}`, payload, headers)
-      .map(res => res.response)
-      .mergeMap(questions => Observable.of ({
-        type: ActionTypes.ORDER_BY_ASC_SUCCESS,
-        payload: questions,
-      }
-      ))
-      .catch(error => Observable.of({
-        type: ActionTypes.ORDER_BY_ASC_ERROR,
+        type: ActionTypes.ORDER_BY_ERROR,
         payload: error,
       },
         Actions.addNotificationAction({
