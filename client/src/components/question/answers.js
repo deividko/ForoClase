@@ -56,7 +56,7 @@ class Answers extends Component {
               ))}
               {answering ? <li className="list-group-item" key={question.answers.length}><Spinner /></li> : null}
             </ul>
-            {!answering && question.answers.length === 0 && question.answers.length === 0 ? 'No answers yet!' : null}
+            {!answering && question.answers && question.answers.length === 0 ? 'No answers yet!' : null}
           </div>
         )}
       </div>
