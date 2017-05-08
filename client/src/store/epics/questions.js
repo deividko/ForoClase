@@ -12,8 +12,8 @@ export const getMoreQuestions = action$ => action$
   .ofType(ActionTypes.GET_MORE_QUESTIONS)
   .map(signRequest)
   .mergeMap(({headers, payload}) => Observable
-    .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&option=${payload.option}`,
-      headers)
+  .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&order=${payload.order || 'creationDate'}&direction=${payload.direction || 'asc'}`,
+    headers)
     .delayInDebug(2000)
     .map(res => res.response)
     .map(questions => ({

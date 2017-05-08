@@ -18,11 +18,13 @@ export default (app) => {
     const skip = parseInt(req.query.skip, 10) || 0;
     const limit = parseInt(req.query.limit, 10) || 10;
     const match = req.query.match || '';
-    const option =  req.query.option;
+    const direction = req.query.direction;
+    const order = req.query.order;
+    const orderFn = direction === 'desc' ? r.desc : r.asc;
     const questions = await r.table('Question')
                              .pluck('id', 'text', 'creationDate', 'expirationDate', 'owner')
                              .filter(doc => doc('text').match(`(?i)${match}`))
-                             .orderBy(r.option[1](option[0]))
+                             .orderBy(orderFn(order))
                              .skip(skip)
                              .limit(limit);
     // send question back

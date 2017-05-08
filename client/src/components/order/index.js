@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Question from '../question/question';
 
-import {orderBy} from '../../store/actions';
+import {getMoreQuestions} from '../../store/actions';
 
 const mapStateToProps = (state) => ({
   questions: state.questions.questions,
 });
 
 const mapDispatchToProps = dispatch => ({
-  orderBy: payload => dispatch(orderBy(payload)),
+  getMoreQuestions: payload => dispatch(getMoreQuestions(payload)),
 });
 
 class OrderBy extends Component {
@@ -20,10 +20,11 @@ class OrderBy extends Component {
 
   handleChange(e) {
     e.preventDefault();
-    const {orderBy} = this.props;
+    const {getMoreQuestions, resetQuestions} = this.props;
     const option = e.target.value.split('.');
-console.log(option);
-     orderBy({option});
+    const direction = option[1];
+    const order = option[0];
+    getMoreQuestions({direction, order, reset: true});
     return false;
   }
 
