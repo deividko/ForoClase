@@ -51,12 +51,12 @@ class Answers extends Component {
         {loading ? <Spinner /> : (
           <div>
             <ul className="list-group">
-              {question.answers.map(answer => (
+              {question.answers && question.answers.map(answer => (
                 <Answer key={answer.id} answer={answer} questionId={question.id} questionClose={question.close} />
               ))}
               {answering ? <li className="list-group-item" key={question.answers.length}><Spinner /></li> : null}
             </ul>
-            {!answering && question.answers.length === 0 ? 'No answers yet!' : null}
+            {!answering && question.answers.length === 0 && question.answers.length === 0 ? 'No answers yet!' : null}
           </div>
         )}
       </div>
