@@ -4,7 +4,17 @@ import {connect} from 'react-redux';
 import Answers from './answers.js';
 import AddAnswer from './addAnswer.js';
 import ModalLock from '../modals/modalLockQuestion.js';
+import {deleteQuestionAction, getUserAction} from '../../store/actions';
 
+const mapStateToProps = state => ({
+  userAuth: state.auth.user,
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+  deleteQuestion: payload => dispatch(deleteQuestionAction(payload)),
+  getUser: payload => dispatch(getUserAction(payload)),
+});
 
 class Question extends Component {
 
@@ -15,8 +25,9 @@ class Question extends Component {
     };
   }
 
+
   render() {
-    const {question,closed} = this.props;
+    const {question, closed, user, userAuth, deleteQuestion} = this.props;
     const {collapse} = this.state;
 
     const handleCollapseClick = (e) => {
@@ -27,6 +38,12 @@ class Question extends Component {
       return false;
     };
 
+    const handleDelete = e => {
+       e.preventDefault();
+       deleteQuestion({id: question.id});
+       return false;
+     }
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
@@ -35,6 +52,14 @@ class Question extends Component {
             onClick={handleCollapseClick} />{' '}
           {question.text}
           < ModalLock questionId={question.id} />
+          {!question.close ?
+              question.owner === userAuth.id ?
+                <button
+                  className="btn btn-default glyphicon glyphicon-trash btn-danger pull-right"
+                  onClick={handleDelete}>
+                </button>
+               : null
+            : null}
         </div>
         {collapse ? null : <Answers  cerrado={question.close} question={question} loading />}
         {collapse ? null : question.close ? <AddAnswer question={question} cerrado={question.close} /> : <AddAnswer question={question} />}
@@ -42,4 +67,5 @@ class Question extends Component {
     );
   }
 }
-export default Question;
+
+export default connect (mapStateToProps, mapDispatchToProps)(Question);

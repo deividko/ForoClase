@@ -22,7 +22,7 @@ export default (app) => {
     const order = req.query.order;
     const orderFn = direction === 'desc' ? r.desc : r.asc;
     const questions = await r.table('Question')
-                             .pluck('id', 'text', 'creationDate', 'expirationDate', 'owner')
+                             .pluck('id', 'text', 'creationDate', 'expirationDate', 'owner', 'close')
                              .filter(doc => doc('text').match(`(?i)${match}`))
                              .orderBy(orderFn(order))
                              .skip(skip)

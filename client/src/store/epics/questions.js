@@ -210,22 +210,45 @@ export const doFilterQuestions = action$ => action$
       },
     ),
   );
-  export const orderBy = action$ => action$
-    .ofType(ActionTypes.ORDER_BY)
-    .map(signRequest)
-    .switchMap(({headers, payload}) => Observable
-    .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&option=${payload.option}`, headers)
-      .map(res => res.response)
-      .mergeMap(questions => Observable.of ({
-        type: ActionTypes.ORDER_BY_SUCCESS,
-        payload: questions,
-      }
-      ))
-      .catch(error => Observable.of({
-        type: ActionTypes.ORDER_BY_ERROR,
-        payload: error,
-      },
-        Actions.addNotificationAction({
-          text: `error: ${ajaxErrorToMessage(error)}`, alertType: 'danger',
-        })
-      )));
+export const orderBy = action$ => action$
+  .ofType(ActionTypes.ORDER_BY)
+  .map(signRequest)
+  .switchMap(({headers, payload}) => Observable
+  .ajax.get(`http://${host}:${port}/api/question?skip=${payload.skip || 0}&limit=${payload.limit || 10}&match=${payload.match || ''}&option=${payload.option}`, headers)
+    .map(res => res.response)
+    .mergeMap(questions => Observable.of ({
+      type: ActionTypes.ORDER_BY_SUCCESS,
+      payload: questions,
+    }
+    ))
+    .catch(error => Observable.of({
+      type: ActionTypes.ORDER_BY_ERROR,
+      payload: error,
+    },
+      Actions.addNotificationAction({
+        text: `error: ${ajaxErrorToMessage(error)}`, alertType: 'danger',
+      })
+    )));
+
+export const deleteQuestion = action$ => action$
+  .ofType(ActionTypes.DELETE_QUESTION)
+  .map(signRequest)
+  .switchMap(({headers, payload}) => Observable
+  .ajax.delete(`http://${host}:${port}/api/question/${payload.id}`, headers)
+   .map(res => res.response)
+   .mergeMap(() => Observable.of({
+     type: ActionTypes.DELETE_QUESTION_SUCCESS,
+     payload,
+   },
+     Actions.addNotificationAction({
+       text: 'Question deleted', alertType: 'success'
+     })
+   ))
+   .catch(error => Observable.of({
+     type: ActionTypes.DELETE_QUESTION_ERROR,
+     payload: error,
+   },
+     Actions.addNotificationAction({
+       text: `error: ${ajaxErrorToMessage(error)}`, alertType: 'danger',
+     })
+)));
