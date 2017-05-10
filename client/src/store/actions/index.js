@@ -108,10 +108,10 @@ export const editAnswer = payload => ({
   type: ActionTypes.EDIT_ANSWER,
   payload,
 });
-export const closeQuestion =payload => ({
+export const closeQuestion = payload => ({
   type: ActionTypes.CLOSE_QUESTION,
   payload,
-})
+});
 
 export const createQuestion = payload => ({
   type: ActionTypes.CREATE_QUESTION,
@@ -123,7 +123,12 @@ export const doFilterQuestions = payload => ({
   payload,
 });
 
-export const orderBy= payload => ({
+export const orderBy = payload => ({
   type: ActionTypes.ORDER_BY,
+  payload,
+});
+
+export const deleteQuestionAction = payload => ({
+  type: ActionTypes.DELETE_QUESTION,
   payload,
 });
