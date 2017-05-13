@@ -40,7 +40,7 @@ export const addNotificationAction = payload => ({
   payload: {
     id: nextNotificationId++,
     ...payload,
-  },z
+  },
 });
 
 export const getNextNotificationId = () => nextNotificationId;

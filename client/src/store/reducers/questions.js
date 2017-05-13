@@ -23,6 +23,7 @@ export const questions = (state = initialState, action) => {
     case ActionTypes.ANSWER_QUESTION_ERROR:
     case ActionTypes.EDIT_ANSWER_ERROR:
     case ActionTypes.DELETE_ANSWER_ERROR:
+    case ActionTypes.DELETE_QUESTION_ERROR:
     case ActionTypes.CREATE_QUESTION_ERROR:
     case ActionTypes.CLOSE_QUESTION_ERROR:
       return {
@@ -73,11 +74,30 @@ export const questions = (state = initialState, action) => {
       const newQuestions = [action.payload, ...state.questions];
       return {...state, questions: newQuestions, status: 'done', hasMore: state.hasMore};
     }
+    case ActionTypes.DELETE_QUESTION_SUCCESS:
+       const filter = state.questions.filter(question => question.id !== action.payload.id);
+       return {
+        ...state,
+         questions: filter,
+        deleting: action.type === ActionTypes.DELETE_QUESTION_SUCCESS ? {
+           ...state.deleting,
+           [action.payload.answerId]: false,
+         } : state.deleting,
+         hasMore: state.hasMore,
+       };
+
+   case ActionTypes.GET_DELETED_QUESTION:
+     const questionsDel = state.questions.filter(question => question.id !== action.payload);
+     return {
+       ...state,
+       questions: questionsDel
+     }
     case ActionTypes.ADD_NOTIFICATION:
     case ActionTypes.REMOVE_NOTIFICATION:
     case ActionTypes.REMOVE_NOTIFICATION_BY_REF: {
       return state;
     }
+
     default:
       return {...state, editing: false};
   }
