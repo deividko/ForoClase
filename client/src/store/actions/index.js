@@ -132,3 +132,8 @@ export const deleteQuestionAction = payload => ({
   type: ActionTypes.DELETE_QUESTION,
   payload,
 });
+
+export const voteQuestionAction = payload => ({
+  type: ActionTypes.VOTE_QUESTION,
+  payload,
+});

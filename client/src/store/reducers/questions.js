@@ -26,6 +26,7 @@ export const questions = (state = initialState, action) => {
     case ActionTypes.DELETE_QUESTION_ERROR:
     case ActionTypes.CREATE_QUESTION_ERROR:
     case ActionTypes.CLOSE_QUESTION_ERROR:
+    case ActionTypes.VOTE_QUESTION_ERROR:
       return {
         ...state,
         status: 'error',
@@ -92,6 +93,12 @@ export const questions = (state = initialState, action) => {
        ...state,
        questions: questionsDel
      }
+   case ActionTypes.VOTE_QUESTION_SUCCESS:
+       const ques = state.questions.map(ques => ques.id === action.payload.id ? ques = action.payload : ques);
+       return {
+         ...state,
+         questions: ques,
+    }
     case ActionTypes.ADD_NOTIFICATION:
     case ActionTypes.REMOVE_NOTIFICATION:
     case ActionTypes.REMOVE_NOTIFICATION_BY_REF: {

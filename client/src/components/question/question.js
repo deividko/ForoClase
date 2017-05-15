@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import Answers from './answers.js';
 import AddAnswer from './addAnswer.js';
 import ModalLock from '../modals/modalLockQuestion.js';
-import {deleteQuestionAction, getUserAction} from '../../store/actions';
+import {deleteQuestionAction, getUserAction, voteQuestionAction } from '../../store/actions';
 
 const mapStateToProps = state => ({
   userAuth: state.auth.user,
@@ -14,6 +14,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   deleteQuestion: payload => dispatch(deleteQuestionAction(payload)),
   getUser: payload => dispatch(getUserAction(payload)),
+  voteQuestion: payload => dispatch(voteQuestionAction(payload)),
 });
 
 class Question extends Component {
@@ -27,7 +28,7 @@ class Question extends Component {
 
 
   render() {
-    const {question, closed, user, userAuth, deleteQuestion} = this.props;
+    const {question, closed, user, userAuth, deleteQuestion,voteQuestion} = this.props;
     const {collapse} = this.state;
 
     const handleCollapseClick = (e) => {
@@ -37,6 +38,12 @@ class Question extends Component {
       });
       return false;
     };
+
+    const handleVote = e => {
+       e.preventDefault();
+       voteQuestion({id: question.id})       
+       return false;
+     }
 
     const handleDelete = e => {
        e.preventDefault();
@@ -52,6 +59,10 @@ class Question extends Component {
             onClick={handleCollapseClick} />{' '}
           {question.text}
           < ModalLock questionId={question.id} />
+          <button
+           className="btn btn-default glyphicon glyphicon-thumbs-up"
+           onClick={handleVote}>
+         </button>
           {!question.close ?
               question.owner === userAuth.id ?
                 <button

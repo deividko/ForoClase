@@ -5,6 +5,7 @@ import update from './update';
 import deleteQuestion from './delete';
 import close from './close';
 import answer from './answer';
+import vote from './vote';
 
 export default (app) => {
   get(app);
@@ -13,4 +14,5 @@ export default (app) => {
   deleteQuestion(app);
   close(app);
   answer(app);
+  vote(app);
 };

@@ -12,4 +12,5 @@ export const Question = thinky.createModel('Question', {
     })
   ).default([]),
   owner: thinky.type.string().required(),
+  votes: thinky.type.number().required(),
 });
