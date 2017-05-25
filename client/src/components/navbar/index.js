@@ -31,6 +31,9 @@ const NavBar = ({actualPath, user}) => (
           <NavbarLink path="/create" actualPath={actualPath}>
             Create new question
           </NavbarLink>
+          <NavbarLink path="/chat" actualPath={actualPath}>
+           chat
+          </NavbarLink>
         </ul>
         {user ? <ul className="nav navbar-nav navbar-right">
           <li><a>Logged as {user.login}{user.provider ? ` (${user.provider})` : null}</a></li>

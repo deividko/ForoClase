@@ -137,3 +137,13 @@ export const voteQuestionAction = payload => ({
   type: ActionTypes.VOTE_QUESTION,
   payload,
 });
+
+export const getConversationChat = payload => ({
+  type: ActionTypes.GET_CONVERSATION,
+  payload,
+});
+
+export const sendText = payload => ({
+  type: ActionTypes.SEND_TEXT,
+  payload,
+});

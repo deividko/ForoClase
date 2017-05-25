@@ -29,7 +29,7 @@ export default (app) => {
       res.send(question);
 
     } catch (e) {
-      res.status(400).send({error: 'Cannot be voted'},e);     
+      res.status(400).send({error: 'Cannot be voted'},e);
     }
   }));
 
