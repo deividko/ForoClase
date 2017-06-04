@@ -25,7 +25,7 @@ import Create from './pages/create';
 import Login from './pages/login';
 import Register from './pages/register';
 import NotFound from './pages/notfound';
-import ChatRoom from './pages/chat';
+import ChatList from './pages/chatlist';
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store);
@@ -39,7 +39,7 @@ ReactDOM.render((
         <Route path="login" component={Login} />
         <Route path="create" component={Create} onEnter={requireAuth} />
         <Route path="register" component={Register} />
-        <Route path="chat" component={ChatRoom} />
+        <Route path="chatlist" component={ChatList} />
         <Route path="*" component={NotFound} />
       </Route>
     </Router>

@@ -8,44 +8,70 @@ import {server as serverConfig} from '../../../config';
 const host = serverConfig.host;
 const port = serverConfig.port;
 
-export const getConversationChat = action$ => action$
-  .ofType(ActionTypes.GET_CONVERSATION)
+export const createChat = action$ => action$
+  .ofType(ActionTypes.CREATE_CHAT)
   .map(signRequest)
-  .mergeMap(({headers}) => Observable
-  .ajax.get(`http://${host}:${port}/api/chat`, headers)
-  .map(res => res.response)
-  .map(chat => ({
-    type: ActionTypes.GET_CONVERSATION_SUCCESS,
-    payload: {chat},
-  }))
-  .catch(error => Observable.of(
-    {
-      type: ActionTypes.GET_CONVERSATION_ERROR,
-      payload: {error},
-    },
-    Actions.addNotificationAction(
-      {text: `[Getting conversation] Error: ${ajaxErrorToMessage(error)}`, alerType: 'danger'},
-    ),
-  )),
-);
+  .switchMap(({headers, payload}) => Observable
+    .ajax.post(`http://${host}:${port}/api/chat/createchat`, payload, headers)
+    .map(res => res.response)
+    .mergeMap(chat => Observable.of(
+      {
+        type: ActionTypes.CREATE_CHAT_SUCCESS,
+        payload: chat,
+      },
+      Actions.addNotificationAction(
+        {text: `Chat with title "${chat.title}" created`, alertType: 'info'},
+      ),
+    ))
+    .catch(error => Observable.of(
+      {
+        type: ActionTypes.CREATE_CHAT_ERROR,
+        payload: {error},
+      },
+      Actions.addNotificationAction(
+        {text: `[chat create] Error: ${ajaxErrorToMessage(error)}`, alertType: 'danger'},
+      ),
+    )),
+  );
 
-export const sendText = action$ => action$
-  .ofType(ActionTypes.SEND_TEXT)
+export const getAllChats = action$ => action$
+  .ofType(ActionTypes.GET_ALL_CHATS)
   .map(signRequest)
-  .mergeMap(({headers, payload}) => Observable
-  .ajax.post(`http://${host}:${port}/api/chat`, payload, headers)
-  .map(res => res.response)
-  .map(conversation => ({
-    type: ActionTypes.SEND_TEXT_SUCCESS,
-    payload: conversation,
-  }))
-  .catch(error => Observable.of(
-    {
-      type: ActionTypes.SEND_TEXT_ERROR,
+  .switchMap(({headers}) => Observable
+    .ajax.get(`http://${host}:${port}/api/chat`, headers)
+    .map(res => res.response)
+    .map(chats => ({
+      type: ActionTypes.GET_ALL_CHATS_SUCCESS,
+      payload: {chats},
+    }))
+    .catch(error => Observable.of({
+      type: ActionTypes.GET_ALL_CHATS_ERROR,
       payload: {error},
-    },
-    Actions.addNotificationAction(
-      {text: `[Getting conversation] Error: ${ajaxErrorToMessage(error)}`, alerType: 'danger'},
-    ),
-  )),
-);
+    })),
+  );
+
+export const joinChat = action$ => action$
+  .ofType(ActionTypes.JOIN_CHAT)
+  .map(signRequest)
+  .switchMap(({headers, payload}) => Observable
+    .ajax.post(`http://${host}:${port}/api/chat/join/${payload.chat.id}`, payload, headers)
+    .map(res => res.response)
+    .mergeMap(chat => Observable.of(
+      {
+        type: ActionTypes.JOIN_CHAT_SUCCESS,
+        payload: {chat},
+      },
+      Actions.addNotificationAction(
+        {text: `You have joined to Chat with title "${chat.title}"`, alertType: 'info'},
+      ),
+    ))
+    .catch(error => Observable.of(
+      {
+        type: ActionTypes.JOIN_CHAT_ERROR,
+        payload: {error},
+      },
+      Actions.addNotificationAction(
+        {text: `[chat create] Error: ${ajaxErrorToMessage(error)}`, alertType: 'danger'},
+      ),
+    )),
+  );

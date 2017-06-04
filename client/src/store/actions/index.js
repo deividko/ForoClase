@@ -138,12 +138,16 @@ export const voteQuestionAction = payload => ({
   payload,
 });
 
-export const getConversationChat = payload => ({
-  type: ActionTypes.GET_CONVERSATION,
+export const createChat = payload => ({
+  type: ActionTypes.CREATE_CHAT,
   payload,
 });
 
-export const sendText = payload => ({
-  type: ActionTypes.SEND_TEXT,
+export const getAllChats = () => ({
+  type: ActionTypes.GET_ALL_CHATS,
+ });
+
+export const joinChat = payload => ({
+  type: ActionTypes.JOIN_CHAT,
   payload,
 });

@@ -31,8 +31,8 @@ const NavBar = ({actualPath, user}) => (
           <NavbarLink path="/create" actualPath={actualPath}>
             Create new question
           </NavbarLink>
-          <NavbarLink path="/chat" actualPath={actualPath}>
-           chat
+          <NavbarLink path="/chatlist" actualPath={actualPath}>
+           chats
           </NavbarLink>
         </ul>
         {user ? <ul className="nav navbar-nav navbar-right">

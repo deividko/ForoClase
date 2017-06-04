@@ -1,8 +1,15 @@
 // our packages
-import post from './post';
+import create from './create';
+import deleteChat from './delete';
 import get from './get';
+import getone from './getone';
+import join from './join';
+
 
 export default (app) => {
-  post(app);
+  create(app);
+  deleteChat(app);
   get(app);
+  getone(app);
+  join(app);
 };
