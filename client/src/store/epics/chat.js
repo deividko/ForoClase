@@ -75,7 +75,7 @@ export const joinChat = action$ => action$
       ),
     )),
   );
-  
+
 export const deleteChat = action$ => action$
   .ofType(ActionTypes.DELETE_CHAT)
   .map(signRequest)
@@ -98,3 +98,25 @@ export const deleteChat = action$ => action$
     ),
   )),
 );
+
+export const getFollowers = action$ => action$
+  .ofType(ActionTypes.GET_FOLLOWERS)
+  .map(signRequest)
+  .mergeMap(({headers, payload}) => Observable
+    .ajax.get(`http://${host}:${port}/api/chat/followed/${payload.user}`, headers)
+    .delayInDebug(2000)
+    .map(res => res.response)
+    .map(follower => ({
+      type: ActionTypes.GET_FOLLOWERS_SUCCESS,
+      payload: {follower},
+    }))
+    .catch(error => Observable.of(
+      {
+        type: ActionTypes.GET_FOLLOWERS_ERROR,
+        payload: {error},
+      },
+      Actions.addNotificationAction(
+        {text: `[get followers] Error: ${ajaxErrorToMessage(error)}`, alertType: 'danger'},
+      ),
+    )),
+  );

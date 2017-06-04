@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {joinChat, deleteChat} from '../../store/actions';
 
 const mapStateToProps = (state, {chat}) => ({
-  user: state.auth.user,
+  login: state.auth.user,
+  follower: state.chats.follower || null,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -19,7 +20,7 @@ class Chat extends Component {
 
   render() {
 
-    const {user, chat, doJoinChat, doDeleteChat} = this.props;
+    const {user, login, chat, doJoinChat, doDeleteChat, follower} = this.props;
 
     const handleJoinClick = (e) => {
         e.preventDefault();
@@ -35,14 +36,20 @@ class Chat extends Component {
       <div className="panel panel-default">
         <div className="panel-heading">
           {chat.title}
-          {user.id && chat.ownerId && user.id !== chat.ownerId ?
+          {login.id && chat.ownerId && login.id !== chat.ownerId ?
             <button className="btn btn-xs btn-info pull-right" onClick={handleJoinClick}>Join Chat</button>
-          : null}
-          {user.id && chat.ownerId && user.id === chat.ownerId ?
-            <button className="btn btn-xs btn-danger pull-right" onClick={(e) => handleDeleteClick(e)} >
+            : <button className="btn btn-xs btn-danger pull-right" onClick={(e) => handleDeleteClick(e)} >
               <span className="glyphicon glyphicon-trash action-icon" />
-            </button>
-          : null}
+            </button>}
+          {login.id && chat.ownerId && login.id === chat.ownerId ?
+            <button className="btn btn-xs btn-info pull-right" style={{marginRight: '10px'}}>Enter Chat</button>
+            : null}
+          {follower ? follower.map(f => (
+            f.id === chat.id ?
+            <button key={f.id}className="btn btn-xs btn-info pull-right" style={{marginRight: '10px'}}>Enter Chat</button>
+            : null
+          )) : null}
+
         </div>
       </div>
     );

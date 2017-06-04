@@ -156,3 +156,8 @@ export const deleteChat = payload => ({
   type: ActionTypes.DELETE_CHAT,
   payload,
 });
+
+export const getFollowers = chatId => ({
+  type: ActionTypes.GET_FOLLOWERS,
+  payload: {chatId},
+});
