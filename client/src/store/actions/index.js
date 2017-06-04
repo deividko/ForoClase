@@ -151,3 +151,8 @@ export const joinChat = payload => ({
   type: ActionTypes.JOIN_CHAT,
   payload,
 });
+
+export const deleteChat = payload => ({
+  type: ActionTypes.DELETE_CHAT,
+  payload,
+});

@@ -6,7 +6,7 @@ import {Chat} from '../db';
 import {asyncRequest} from '../util';
 
 export default (app) => {
-  app.delete('/api/chat/:id', passport.authenticate('jwt', {session: false}), asyncRequest(async (req, res) => {
+  app.delete('/api/chat/delete/:id', passport.authenticate('jwt', {session: false}), asyncRequest(async (req, res) => {
     // get requested chat
     const chat = await Chat.get(req.params.id);
 

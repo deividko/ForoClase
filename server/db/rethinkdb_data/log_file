@@ -440,3 +440,5 @@
 2017-06-04T11:19:30.351741975 2.204229s info: Table 70a63243-c3a6-476d-b887-ee41de173eca: This server is Raft leader for term 4. Latest log index is 9.
 2017-06-04T11:19:30.493401750 2.345888s info: Table d949027e-5571-4ede-8c58-5fd2371fac1f: Starting a new Raft election for term 19.
 2017-06-04T11:19:30.504694309 2.357181s info: Table d949027e-5571-4ede-8c58-5fd2371fac1f: This server is Raft leader for term 19. Latest log index is 54.
+2017-06-04T11:38:28.521232371 1140.373719s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
+2017-06-04T14:15:28.710857502 10560.563344s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.

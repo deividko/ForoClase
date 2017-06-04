@@ -25,6 +25,10 @@ export const chats = (state = initialState, action) => {
        chat: action.payload.chat,
       }
     }
+    case ActionTypes.DELETE_CHAT: {
+     const newChats = state.chats.filter(chat => chat.id !== action.payload.chat.id);
+     return {...state, chats: newChats};
+   }
     default:
       return state;
   }

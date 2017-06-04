@@ -75,3 +75,26 @@ export const joinChat = action$ => action$
       ),
     )),
   );
+  
+export const deleteChat = action$ => action$
+  .ofType(ActionTypes.DELETE_CHAT)
+  .map(signRequest)
+  .switchMap(({headers, payload}) => Observable
+    .ajax.delete(`http://${host}:${port}/api/chat/delete/${payload.chat.id}`, headers)
+    .map(res => res.response)
+    .mergeMap(chatDeleted => Observable.of({
+      type: ActionTypes.DELETE_CHAT_SUCCESS,
+      payload: {chatDeleted},
+    },
+    Actions.addNotificationAction(
+        {text: `Chat: "${payload.chat.title}" deleted`, alertType: 'info'}),
+    ))
+    .catch(error => Observable.of({
+      type: ActionTypes.DELETE_CHAT_ERROR,
+      payload: {error},
+    },
+    Actions.addNotificationAction(
+      {text: `[chat deleted] Error: ${ajaxErrorToMessage(error)}`, alertType: 'danger'},
+    ),
+  )),
+);
