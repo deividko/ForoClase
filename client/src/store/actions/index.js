@@ -161,3 +161,13 @@ export const getFollowers = chatId => ({
   type: ActionTypes.GET_FOLLOWERS,
   payload: {chatId},
 });
+
+export const getOneChat = payload => ({
+  type: ActionTypes.GET_ONE_CHAT,
+  payload,
+});
+
+export const sendMessage = payload => ({
+  type: ActionTypes.SEND_MESSAGE,
+  payload,
+});

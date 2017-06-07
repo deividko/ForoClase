@@ -39,3 +39,31 @@ export const registerQuestionObservable = questionId => (conn, getState) =>
   .catch(error => Observable.of(
     Actions.addNotificationAction({text: error.toString(), alertType: 'danger'}),
   ));
+
+  export const registerChatObservable = chatId => (conn, getState) =>
+    Observable.fromPromise(r.table('Chat').filter({id: chatId}).changes().run(conn))
+    .switchMap(cursor => Observable.create((observer) => {
+      cursor.each((err, row) => {
+        if (err) throw err;
+        observer.next(row);
+      });
+      return function() {
+        cursor.close();
+      };
+    }).debounceTime(5000))
+    .map(row => row.new_val)
+    .filter((chat) => {
+      if (!chat) {
+        return false;
+      }
+      const storedChat = _.find(getState().chats.chats, {id: chat.id});
+      return !storedChat || !_.isEqual(storedChat.messages, chat.messages);
+    })
+    .map((chat) => {
+      return Actions.getOneChat({
+        id: chat.id
+      });
+    })
+    .catch(error => Observable.of(
+      Actions.addNotificationAction({text: error.toString(), alertType: 'danger'}),
+    ));

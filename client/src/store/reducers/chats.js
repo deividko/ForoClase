@@ -34,6 +34,16 @@ export const chats = (state = initialState, action) => {
        ...state,
       follower: action.payload.follower,}
    }
+   case ActionTypes.GET_ONE_CHAT_SUCCESS:
+      return {
+       ...state,
+       specificchat: action.payload.specificchat,
+    };
+  case ActionTypes.SEND_MESSAGE_SUCCESS:
+    return {
+     ...state,
+    specificchat: action.payload.specificchat,
+  }
     default:
       return state;
   }

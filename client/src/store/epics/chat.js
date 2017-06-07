@@ -120,3 +120,47 @@ export const getFollowers = action$ => action$
       ),
     )),
   );
+
+export const getOneChat = action$ => action$
+  .ofType(ActionTypes.GET_ONE_CHAT)
+  .map(signRequest)
+  .mergeMap(({headers, payload}) => Observable
+    .ajax.get(`http://${host}:${port}/api/chat/${payload.id}`, headers)
+    .map(res => res.response)
+    .map(specificchat => ({
+      type: ActionTypes.GET_ONE_CHAT_SUCCESS,
+      payload: {specificchat},
+    }))
+    .catch(error => Observable.of({
+      type: ActionTypes.GET_ONE_CHAT_ERROR,
+      payload: {error},
+    })),
+  );
+
+export const sendMessage = action$ => action$
+  .ofType(ActionTypes.SEND_MESSAGE)
+  .map(signRequest)
+  .mergeMap(({headers, payload}) => Observable
+    .ajax.post(`http://${host}:${port}/api/chat/${payload.specificchat.id}/message`, {message: payload.message}, headers)
+    .delayInDebug(2000)
+    .map(res => res.response)
+    .mergeMap(specificchat => Observable.of(
+      {
+        type: ActionTypes.SEND_MESSAGE_SUCCESS,
+        payload: {specificchat},
+      },
+      Actions.addNotificationAction(
+        {text: `Message "${payload.message}" added to question: "${payload.specificchat.title}"`, alertType: 'info'},
+      ),
+      Actions.removeNotificationByRefAction(specificchat.id),
+    ))
+    .catch(error => Observable.of(
+      {
+        type: ActionTypes.SEND_MESSAGE_ERROR,
+        payload: {error},
+      },
+      Actions.addNotificationAction(
+        {text: `[message create] Error: ${ajaxErrorToMessage(error)}`, alertType: 'danger'},
+      ),
+    )),
+  );

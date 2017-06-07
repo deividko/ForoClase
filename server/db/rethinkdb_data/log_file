@@ -442,3 +442,35 @@
 2017-06-04T11:19:30.504694309 2.357181s info: Table d949027e-5571-4ede-8c58-5fd2371fac1f: This server is Raft leader for term 19. Latest log index is 54.
 2017-06-04T11:38:28.521232371 1140.373719s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
 2017-06-04T14:15:28.710857502 10560.563344s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
+2017-06-04T17:58:28.926799753 23940.779286s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
+2017-06-04T18:05:50.207209126 24382.059696s notice: Server got SIGTERM from pid 0, uid 0; shutting down...
+2017-06-04T18:05:50.209639696 24382.062126s notice: Shutting down client connections...
+2017-06-04T18:05:50.209708739 24382.062195s notice: All client connections closed.
+2017-06-04T18:05:50.209710280 24382.062197s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2017-06-04T18:05:50.252551254 24382.105038s notice: Storage engine shut down.
+2017-06-04T18:06:06.326954148 0.249480s notice: Running rethinkdb 2.3.5~0jessie (GCC 4.9.2)...
+2017-06-04T18:06:06.334859745 0.257384s notice: Running on Linux 4.8.0-52-generic x86_64
+2017-06-04T18:06:06.334903261 0.257426s notice: Loading data from directory /data/rethinkdb_data
+2017-06-04T18:06:06.348525814 0.271050s info: Automatically using cache size of 100 MB
+2017-06-04T18:06:06.348650683 0.271173s warn: Cache size does not leave much memory for server and query overhead (available memory: 973 MB).
+2017-06-04T18:06:06.348652421 0.271175s warn: Cache size is very low and may impact performance.
+2017-06-04T18:06:06.408814767 0.331337s notice: Listening for intracluster connections on port 29015
+2017-06-04T18:06:06.496973563 0.419509s notice: Listening for client driver connections on port 28015
+2017-06-04T18:06:06.497204875 0.419727s notice: Listening for administrative HTTP connections on port 8080
+2017-06-04T18:06:06.534290546 0.456813s notice: Listening on cluster addresses: 127.0.0.1, 172.17.0.2, ::1, fe80::42:acff:fe11:2%10
+2017-06-04T18:06:06.573228852 0.495752s notice: Listening on driver addresses: 127.0.0.1, 172.17.0.2, ::1, fe80::42:acff:fe11:2%10
+2017-06-04T18:06:06.633293317 0.555816s notice: Listening on http addresses: 127.0.0.1, 172.17.0.2, ::1, fe80::42:acff:fe11:2%10
+2017-06-04T18:06:06.633302822 0.555825s notice: Server ready, "51a2f6d25bf5_liq" 4b6f8ea5-c7e8-413d-889c-f327a949d7cc
+2017-06-04T18:06:07.576055705 1.498578s info: Table c48202d3-f64f-40a1-8372-8f11cd7c6ea5: Starting a new Raft election for term 20.
+2017-06-04T18:06:07.579433793 1.501956s info: Table c48202d3-f64f-40a1-8372-8f11cd7c6ea5: This server is Raft leader for term 20. Latest log index is 57.
+2017-06-04T18:06:07.657147563 1.579670s info: Table d949027e-5571-4ede-8c58-5fd2371fac1f: Starting a new Raft election for term 20.
+2017-06-04T18:06:07.661228320 1.583751s info: Table d949027e-5571-4ede-8c58-5fd2371fac1f: This server is Raft leader for term 20. Latest log index is 57.
+2017-06-04T18:06:07.783747274 1.706270s info: Table 70a63243-c3a6-476d-b887-ee41de173eca: Starting a new Raft election for term 5.
+2017-06-04T18:06:07.785054011 1.707576s info: Table 70a63243-c3a6-476d-b887-ee41de173eca: This server is Raft leader for term 5. Latest log index is 12.
+2017-06-04T18:06:08.010870532 1.933393s info: Table d859fd9f-d48a-447d-af4a-68c6d5eb143d: Starting a new Raft election for term 5.
+2017-06-04T18:06:08.012211873 1.934734s info: Table d859fd9f-d48a-447d-af4a-68c6d5eb143d: This server is Raft leader for term 5. Latest log index is 12.
+2017-06-04T18:06:08.305346640 2.227869s info: Table 1e1e066d-d290-41f1-ab33-f3cdea9f3371: Starting a new Raft election for term 11.
+2017-06-04T18:06:08.308780808 2.231303s info: Table 1e1e066d-d290-41f1-ab33-f3cdea9f3371: This server is Raft leader for term 11. Latest log index is 30.
+2017-06-04T18:07:06.493893366 60.416416s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
+2017-06-05T09:38:37.137418305 15060.713063s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.
+2017-06-05T12:13:37.341989498 24360.917634s warn: Some RethinkDB data on this server has been placed into swap memory. This may impact performance.

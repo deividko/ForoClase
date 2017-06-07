@@ -2,7 +2,7 @@ import {initAuth, login, githubLogin, register, logout} from './auth';
 import {addNotification} from './notifications';
 import {addObservable, openConnection, closeConnection} from './realtime';
 import {helloWorld} from './helloworld';
-import {createChat, getAllChats, joinChat, deleteChat, getFollowers} from './chat';
+import {createChat, getAllChats, joinChat, deleteChat, getFollowers, getOneChat, sendMessage} from './chat';
 import {getMoreQuestions,
         answerQuestion,
         deleteAnswer,
@@ -48,4 +48,6 @@ export default [
   joinChat,
   deleteChat,
   getFollowers,
+  getOneChat,
+  sendMessage,
 ];

@@ -7,11 +7,11 @@ export const Chat = thinky.createModel('Chat', {
       id: thinky.type.string(),
       user: thinky.type.string(),
       date: thinky.type.date().default(thinky.r.now()),
-      text: thinky.type.string(),
+      message: thinky.type.string(),
     }
   ).default([])),
   users: thinky.type.array().schema(thinky.type.object().schema(
-    {      
+    {
       id: thinky.type.string(),
     }
   ).default([])),

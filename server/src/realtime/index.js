@@ -14,7 +14,7 @@ const options = {
   dbHost: dbConfig.host,
   dbPort: dbConfig.port,
   db: dbConfig.db,
-  unsafelyAllowAnyQuery: false,
+  unsafelyAllowAnyQuery: true,
 };
 
 const runQuery = query => rethinkConn.then(
@@ -44,11 +44,20 @@ const queryWhitelist = [
   .validate(() => true),
 ];
 
+const queryWhitelist2 = [
+   r.table('Chat')
+   .filter({id: RP.ref('id')})
+   .changes()
+   .opt('db', r.db('expertsdb'))
+   .validate(() => true),
+ ];
+
 export default (httpServer) => {
   listen({
     ...options,
     sessionCreator,
     queryWhitelist,
+    queryWhitelist2,
     httpServer,
   });
 };
